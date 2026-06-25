@@ -131,6 +131,8 @@ graph TD
 ## 3. Screen Flow — Bagian 1: Onboarding & Autentikasi
 *(Menjawab Soal Test #2)*
 
+![Screen Flow 2](03_Screen_Behavior_UI_UX/assets/Screen_Flow_1.png)
+
 ```mermaid
 graph LR
 S["Splash"] --> W["Welcome/Onboarding"]
@@ -148,7 +150,7 @@ Bio --> Dash
 
 ## 4. Screen Flow — Bagian 2: Pengajuan & Proses Pinjaman
 *(Menjawab Soal Test #2)*
-![Screen Flow 2](03_Screen_Behavior_UI_UX/assets/Screen_Flow_1.png)
+
 ![Screen Flow 2](03_Screen_Behavior_UI_UX/assets/Screen_Flow_2.png)
 
 ```mermaid
