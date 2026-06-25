@@ -24,6 +24,7 @@ PT XYZ adalah perusahaan fintech yang ingin mengembangkan aplikasi **pinjaman on
 ---
 
 ## Struktur Dokumen
+
 ---
 
 ## ✅ Mapping Jawaban Terhadap Soal Technical Test
@@ -31,8 +32,8 @@ PT XYZ adalah perusahaan fintech yang ingin mengembangkan aplikasi **pinjaman on
 | No. | Soal Technical Test | Dijawab di Bagian | File Terkait |
 |---|---|---|---|
 | 1 | High Level Design Architecture | Bagian 1 | `High_Level_Design_Architecture.png` |
-| 2 | Screen Flow & ERD | Bagian 3, 4, 5 | `Screen_Flow_1.png`, `Screen_Flow_2.png`, `ERD_Database_Design.png` |
-| 3 | Detail Design API (UML/ERD/Flowchart) | Bagian 6, 7 | `API_Design_Architecture_Endpoint.png`, `Sequence_Diagram.png` |
+| 2 | Screen Flow & ERD | Bagian 3, 4, 5 | `Screen_Flow_2.png`, `ERD_Database_Design.png` |
+| 3 | Detail Design API (UML/ERD/Flowchart) | Bagian 6, 7 | `Sequence_Diagram.png` |
 | 4 | Detail Design Screen Behavior | Bagian 8, 9, 10 | `State_Machine.png`, `Low_Design_Key_Screens.png`, `High_Design_Key_Screens.png` |
 | — | Dokumen Pendukung Tambahan | Bagian 2, 11, 12, 13 | `Business_Process_Flow.png`, `Traceability_Matrix.png`, `Assumptions.png`, `Non_Functional_Requirements.png` |
 
@@ -82,7 +83,7 @@ Notif --> Email["Email/SMS Provider"]
 
 ```mermaid
 graph TD
-    subgraph Layer1[Layer 1: Customer Journey]
+    subgraph Layer1["Layer 1: Customer Journey"]
         C1[Onboarding & KYC] --> C2[Authentication]
         C2 --> C3[Eligibility Check]
         C3 --> C4[Loan Application]
@@ -92,7 +93,7 @@ graph TD
         C7 --> C8[Installment & Repayment]
     end
 
-    subgraph Layer2[Layer 2: System Processing]
+    subgraph Layer2["Layer 2: System Processing"]
         S1[Customer Domain Mgmt] --> S2[KYC Domain Mgmt]
         S2 --> S3[Loan Domain Mgmt]
         S3 --> S4[Risk Engine Domain]
@@ -100,7 +101,7 @@ graph TD
         S5 --> S6[Notification Domain Mgmt]
     end
 
-    subgraph Layer3[Layer 3: Business Rules]
+    subgraph Layer3["Layer 3: Business Rules"]
         R1[BR-01: Max 1 Active Loan]
         R2[BR-02: Max Loan 12M IDR]
         R3[BR-03: Max Tenor 12 Months]
@@ -109,16 +110,19 @@ graph TD
 
     C1 -.-> S1
     C2 -.-> S1
-    C3 -.-> S1 & S2
+    C3 -.-> S1
+    C3 -.-> S2
     C4 -.-> S3
     C5 -.-> S4
     C6 -.-> S3
     C7 -.-> S5
-    C8 -.-> S5 & S6
+    C8 -.-> S5
+    C8 -.-> S6
 
-    subgraph EventFlow[Event Driven Flow (Kafka)]
+    subgraph EventFlow["Event-Driven Flow - Kafka"]
         E1[Loan Submitted] --> E2[KYC Verified] --> E3[Loan Approved] --> E4[Payment Recorded] --> E5[Notification Sent]
     end
+
     Layer2 --> EventFlow
 ```
 
@@ -126,8 +130,6 @@ graph TD
 
 ## 3. Screen Flow — Bagian 1: Onboarding & Autentikasi
 *(Menjawab Soal Test #2)*
-
-![Screen Flow 1](03_Screen_Behavior_UI_UX/assets/Screen_Flow_1.png)
 
 ```mermaid
 graph LR
@@ -146,7 +148,7 @@ Bio --> Dash
 
 ## 4. Screen Flow — Bagian 2: Pengajuan & Proses Pinjaman
 *(Menjawab Soal Test #2)*
-
+![Screen Flow 2](03_Screen_Behavior_UI_UX/assets/Screen_Flow_1.png)
 ![Screen Flow 2](03_Screen_Behavior_UI_UX/assets/Screen_Flow_2.png)
 
 ```mermaid
@@ -228,8 +230,6 @@ REPAYMENT_SCHEDULE {
 
 ## 6. API Design & Endpoint Architecture
 *(Menjawab Soal Test #3)*
-
-![API Design Architecture Endpoint](02_Architecture_Design/assets/API_Design_Architecture_Endpoint.png)
 
 ```mermaid
 graph TD
@@ -338,7 +338,6 @@ Wireframe ini menggambarkan struktur layout dasar dan urutan navigasi antar laya
 ![High Design Key Screens](03_Screen_Behavior_UI_UX/assets/High_Design_Key_Screens.png)
 
 Versi high-fidelity merupakan penyempurnaan dari wireframe pada Bagian 9, lengkap dengan styling, warna, dan komponen UI final yang merepresentasikan tampilan akhir aplikasi.
-
 
 ```mermaid
 flowchart LR
