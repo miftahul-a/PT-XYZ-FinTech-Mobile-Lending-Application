@@ -82,13 +82,44 @@ Notif --> Email["Email/SMS Provider"]
 
 ```mermaid
 graph TD
-O["Onboarding"] --> A["Autentikasi"]
-A --> E["Cek Eligibilitas (Pinjaman Aktif?)"]
-E --> L["Pengajuan Pinjaman"]
-L --> R["Risk Assessment"]
-R --> D["Keputusan"]
-D --> Dis["Pencairan Dana"]
-Dis --> Rep["Pembayaran/Repayment"]
+    subgraph Layer1[Layer 1: Customer Journey]
+        C1[Onboarding & KYC] --> C2[Authentication]
+        C2 --> C3[Eligibility Check]
+        C3 --> C4[Loan Application]
+        C4 --> C5[Risk Assessment]
+        C5 --> C6[Decision]
+        C6 --> C7[Disbursement to VA]
+        C7 --> C8[Installment & Repayment]
+    end
+
+    subgraph Layer2[Layer 2: System Processing]
+        S1[Customer Domain Mgmt] --> S2[KYC Domain Mgmt]
+        S2 --> S3[Loan Domain Mgmt]
+        S3 --> S4[Risk Engine Domain]
+        S4 --> S5[Payment Domain Mgmt]
+        S5 --> S6[Notification Domain Mgmt]
+    end
+
+    subgraph Layer3[Layer 3: Business Rules]
+        R1[BR-01: Max 1 Active Loan]
+        R2[BR-02: Max Loan 12M IDR]
+        R3[BR-03: Max Tenor 12 Months]
+        R4[BR-04: Risk Based Decision]
+    end
+
+    C1 -.-> S1
+    C2 -.-> S1
+    C3 -.-> S1 & S2
+    C4 -.-> S3
+    C5 -.-> S4
+    C6 -.-> S3
+    C7 -.-> S5
+    C8 -.-> S5 & S6
+
+    subgraph EventFlow[Event Driven Flow (Kafka)]
+        E1[Loan Submitted] --> E2[KYC Verified] --> E3[Loan Approved] --> E4[Payment Recorded] --> E5[Notification Sent]
+    end
+    Layer2 --> EventFlow
 ```
 
 ---
@@ -308,6 +339,20 @@ Wireframe ini menggambarkan struktur layout dasar dan urutan navigasi antar laya
 
 Versi high-fidelity merupakan penyempurnaan dari wireframe pada Bagian 9, lengkap dengan styling, warna, dan komponen UI final yang merepresentasikan tampilan akhir aplikasi.
 
+
+```mermaid
+flowchart LR
+    S1[Splash Screen] --> S2[Welcome/Intro]
+    S2 --> S3[Register Account] & S4[Login]
+    S3 --> S5[OTP Verification] --> S4
+    S4 --> S6[Dashboard]
+    S6 --> S7[Loan Simulation] --> S8[Loan App Form]
+    S8 --> S9[Processing]
+    S9 --> S10[Approved] & S11[Rejected]
+    S10 --> S12[Payment Method] --> S13[Processing] --> S14[Result]
+    S6 --> S15[Notification] & S16[Profile/Settings]
+```
+
 ---
 
 ## 11. Traceability Matrix
@@ -333,13 +378,20 @@ Versi high-fidelity merupakan penyempurnaan dari wireframe pada Bagian 9, lengka
 ![Assumptions](01_Project_Overview/assets/Assumptions.png)
 
 ```mermaid
-graph TD
-A["Key Assumptions"]
-A --> B["Business: Maksimal pinjaman Rp 12.000.000, tenor maksimal 12 bulan"]
-A --> R["Business Rule: 1 user hanya boleh memiliki 1 pinjaman aktif"]
-A --> U["User: Minimal usia 18 tahun, identitas (KTP) valid"]
-A --> S["System: Arsitektur microservices, PostgreSQL sebagai primary database"]
-A --> Sec["Security: JWT untuk autentikasi, TLS 1.3 untuk transport"]
+mindmap
+  root((Assumptions))
+    Business
+      Max Loan Rp 12.000.000
+      Tenor 12 Months
+      1 Active Loan
+    Users
+      Age >= 18
+      Valid KTP
+    System
+      Microservices
+      PostgreSQL & Redis
+    Security
+      JWT, TLS 1.3
 ```
 
 ---
