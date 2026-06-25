@@ -1,38 +1,53 @@
 # PT XYZ FinTech - Mobile Lending Application (Solution Analyst Assessment)
+
 > **Tech Stack**: Enterprise Microservices, Cloud Native, Event-Driven (Kafka), PostgreSQL, Kubernetes.
 
 ---
 
-## 📂 1. HIGH LEVEL DESIGN ARCHITECTURE
-![High Level Architecture](02_Architecture_Design/assets/High Level Design Architecture - Mobile Lending Application.png)
+## ✅ Mapping Terhadap Soal Technical Test
 
-**Mermaid Equivalent (Sesuai Layout):**
+Berikut adalah daftar jawaban lengkap berdasarkan 4 poin soal tes. Anda dapat melihat **File Gambar (Visual Assets)** yang kami desain, serta **Diagram Kode (Mermaid)** yang dapat di-*render* secara interaktif oleh GitHub.
+
+| Soal Technical Test | Visual Assets (File Gambar PNG) | Alternatif Kode Mermaid |
+| :--- | :--- | :--- |
+| **1. High Level Design Architecture** | `High_Level_Design_Architecture.png` | Lihat Bagian 1 |
+| **2. Screen Flow & ERD** | `Screen_Flow_1.png`, `Screen_Flow_2.png`, `ERD_Database_Design.png` | Lihat Bagian 3 & 4 |
+| **3. Detail Design API (UML, ERD, Flowchart)** | `API_DESIGN_ARCHITECTURE_ENDPOINT.png`, `Sequence_Diagram.png` | Lihat Bagian 5 & 6 |
+| **4. Detail Screen Behavior (State Machine)** | `State_Machine.png`, `Low_Design_Key_Screens.png`, `High_Design_Key_Screens.png` | Lihat Bagian 7 & 8 |
+| **Tambahan: NFR, Traceability, Assumptions** | `Non_Functional_Requirements.png`, `Traceability_Matrix.png`, `Assumptionas.png` | Lihat Bagian 9, 10, 11 |
+
+---
+
+## 📂 1. HIGH LEVEL DESIGN ARCHITECTURE (Jawaban Soal No. 1)
+![High Level Architecture](02_Architecture_Design/assets/High_Level_Design_Architecture.png)
+
+**Mermaid Equivalent:**
 ```mermaid
 graph TD
     subgraph Client_Layer
-        Mobile[Mobile App - React Native] --> WAF[Cloudflare WAF]
-        Admin[Admin Portal - React.js] --> GW[API Gateway]
+        Mobile[Mobile App (React Native)] --> WAF[Cloudflare WAF]
+        Admin[Admin Portal (React.js)] --> GW[API Gateway (Kong/Nginx)]
     end
     WAF --> GW
-    GW --> Mesh[Service Mesh - Istio]
+    GW --> Mesh[Service Mesh (Istio)]
     
     Mesh --> CustSvc[Customer Domain Service]
     Mesh --> KYCSvc[KYC Verification Service]
     Mesh --> LoanSvc[Loan Origination Service]
     Mesh --> RiskSvc[Risk Decision Engine]
     Mesh --> PaySvc[Payment & Collection Service]
-    Mesh --> NotifSvc[Notification Service]
+    Mesh --> NotifSvc[Notification Orchestrator]
 
     subgraph Event_Layer
-        Kafka[Apache Kafka / RabbitMQ]
+        Kafka[Message Broker (Kafka/RabbitMQ)]
     end
     CustSvc & KYCSvc & LoanSvc & RiskSvc & PaySvc & NotifSvc --> Kafka
     
     subgraph Data_Layer
-        DB[PostgreSQL Cluster]
-        Cache[Redis Cache]
-        Storage[Object Storage - MinIO]
-        ES[ElasticSearch]
+        DB[PostgreSQL (Primary DB)]
+        Cache[Redis (Caching Layer)]
+        Storage[Object Storage (S3/MinIO)]
+        ES[ElasticSearch (Logging & Search)]
     end
     CustSvc & KYCSvc & LoanSvc & RiskSvc & PaySvc & NotifSvc --> DB
     CustSvc & KYCSvc --> Cache
@@ -41,8 +56,8 @@ graph TD
 
     subgraph External_Integration
         CoreBank[Core Banking System]
-        PayGateway[Payment Gateway - Midtrans/Xendit]
-        KYCProvider[KYC Provider - eKYC]
+        PayGateway[Payment Gateway (Midtrans/Xendit)]
+        KYCProvider[KYC Provider (eKYC)]
         NotifProvider[Email / SMS Provider]
     end
     PaySvc --> CoreBank
