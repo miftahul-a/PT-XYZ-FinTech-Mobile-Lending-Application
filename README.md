@@ -21,7 +21,7 @@ Berikut adalah daftar jawaban lengkap berdasarkan 4 poin soal tes. Anda dapat me
 ## 📂 1. HIGH LEVEL DESIGN ARCHITECTURE (Jawaban Soal No. 1)
 ![High Level Architecture](02_Architecture_Design/assets/High_Level_Design_Architecture.png)
 
-**Mermaid Equivalent:**
+**Mermaid Equivalent (Format Stabil):**
 ```mermaid
 graph TD
     subgraph Client_Layer
