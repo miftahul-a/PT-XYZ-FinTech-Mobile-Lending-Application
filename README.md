@@ -25,29 +25,29 @@ Berikut adalah daftar jawaban lengkap berdasarkan 4 poin soal tes. Anda dapat me
 ```mermaid
 graph TD
     subgraph Client_Layer
-        Mobile[Mobile App (React Native)] --> WAF[Cloudflare WAF]
-        Admin[Admin Portal (React.js)] --> GW[API Gateway (Kong/Nginx)]
+        MobileApp["Mobile App (React Native)"] --> WAF["Cloudflare WAF"]
+        AdminPortal["Admin Portal (React.js)"] --> Gateway["API Gateway (Kong/Nginx)"]
     end
-    WAF --> GW
-    GW --> Mesh[Service Mesh (Istio)]
+    WAF --> Gateway
+    Gateway --> ServiceMesh["Service Mesh (Istio)"]
     
-    Mesh --> CustSvc[Customer Domain Service]
-    Mesh --> KYCSvc[KYC Verification Service]
-    Mesh --> LoanSvc[Loan Origination Service]
-    Mesh --> RiskSvc[Risk Decision Engine]
-    Mesh --> PaySvc[Payment & Collection Service]
-    Mesh --> NotifSvc[Notification Orchestrator]
+    ServiceMesh --> CustSvc["Customer Domain Service"]
+    ServiceMesh --> KYCSvc["KYC Verification Service"]
+    ServiceMesh --> LoanSvc["Loan Origination Service"]
+    ServiceMesh --> RiskSvc["Risk Decision Engine"]
+    ServiceMesh --> PaySvc["Payment & Collection Service"]
+    ServiceMesh --> NotifSvc["Notification Orchestrator"]
 
     subgraph Event_Layer
-        Kafka[Message Broker (Kafka/RabbitMQ)]
+        Kafka["Message Broker (Kafka/RabbitMQ)"]
     end
     CustSvc & KYCSvc & LoanSvc & RiskSvc & PaySvc & NotifSvc --> Kafka
     
     subgraph Data_Layer
-        DB[PostgreSQL (Primary DB)]
-        Cache[Redis (Caching Layer)]
-        Storage[Object Storage (S3/MinIO)]
-        ES[ElasticSearch (Logging & Search)]
+        DB["PostgreSQL (Primary DB)"]
+        Cache["Redis (Caching Layer)"]
+        Storage["Object Storage (S3/MinIO)"]
+        ES["ElasticSearch (Logging & Search)"]
     end
     CustSvc & KYCSvc & LoanSvc & RiskSvc & PaySvc & NotifSvc --> DB
     CustSvc & KYCSvc --> Cache
@@ -55,10 +55,10 @@ graph TD
     PaySvc --> ES
 
     subgraph External_Integration
-        CoreBank[Core Banking System]
-        PayGateway[Payment Gateway (Midtrans/Xendit)]
-        KYCProvider[KYC Provider (eKYC)]
-        NotifProvider[Email / SMS Provider]
+        CoreBank["Core Banking System"]
+        PayGateway["Payment Gateway (Midtrans/Xendit)"]
+        KYCProvider["KYC Provider (eKYC)"]
+        NotifProvider["Email / SMS Provider"]
     end
     PaySvc --> CoreBank
     PaySvc --> PayGateway
