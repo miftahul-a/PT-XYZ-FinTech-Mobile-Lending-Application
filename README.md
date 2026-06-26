@@ -11,7 +11,7 @@
 
 ## Ringkasan Eksekutif
 
-PT XYZ adalah perusahaan fintech yang ingin mengembangkan aplikasi **pinjaman online (mobile lending)** untuk menjangkau pengguna yang lebih luas. Dokumen ini berisi rancangan solusi end-to-end — mulai dari arsitektur sistem, alur layar, struktur data, desain API, hingga perilaku screen — yang disusun untuk menjawab seluruh poin pada *Technical Test Solution Analyst*.
+PT XYZ adalah perusahaan fintech yang ingin mengembangkan aplikasi **pinjaman online (mobile lending)** untuk menjangkau pengguna yang lebih luas. Dokumen ini berisi rancangan solusi end-to-end, mulai dari arsitektur sistem, alur layar, struktur data, desain API, hingga perilaku screen yang disusun untuk menjawab seluruh poin pada *Technical Test Solution Analyst*.
 
 **Batasan bisnis utama yang menjadi dasar rancangan:**
 - Registrasi memerlukan data diri, email, nomor telepon, serta upload foto & KTP (proses KYC)
